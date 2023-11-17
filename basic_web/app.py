@@ -2,8 +2,7 @@ from flask import Flask, render_template, request
 from db import DatabaseManager
 app = Flask(__name__)
 name='name'
-users=DatabaseManager('users.db')
-users.create_tables()
+
 @app.route("/")
 def home():
     return render_template('index.html')
@@ -19,7 +18,8 @@ def form():
 @app.route('/read-form', methods=['POST'])
 def read_form():
     # Get the form data as Python ImmutableDict datatype
-    global users
+    users = DatabaseManager('users.db')
+    users.create_tables()
     data = request.form
     userEmail=data['userEmail']
     userPassword = data['userPassword']
