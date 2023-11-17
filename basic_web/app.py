@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
+from db import DatabaseManager
 app = Flask(__name__)
 name='name'
+users=DatabaseManager('users.db')
+users.create_tables()
 @app.route("/")
 def home():
     return render_template('index.html')
@@ -16,14 +19,22 @@ def form():
 @app.route('/read-form', methods=['POST'])
 def read_form():
     # Get the form data as Python ImmutableDict datatype
+    global users
     data = request.form
+    userEmail=data['userEmail']
+    userPassword = data['userPassword']
+    userContact = data['userContact']
+    users.query('INSERT INTO Users VALUES (?, ?, ?)', (userEmail, userPassword, userContact))
+    # users.query('INSERT INTO Users VALUES (?, ?, ?)', (data['userEmail'], data['userPassword'],data['userContact']))
+
     ## Return the extracted information
-    return {
+    return render_template('formsub.html'),{
         'emailId': data['userEmail'],
         'phoneNumber': data['userContact'],
         'password': data['userPassword'],
         'gender': 'Male' if data['genderMale'] else 'Female',
     }
+
 
 if __name__=="__main__":
     app.run(debug=True)
