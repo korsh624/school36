@@ -14,6 +14,13 @@ def allinfo():
 def form():
     return render_template('form.html')
 
+@app.route("/show")
+def show():
+    users = DatabaseManager('users.db')
+    ltstuser=users.fetchall("""SELECT * FROM users""")
+    print(ltstuser)
+    return render_template('show.html', ltstuser=ltstuser)
+
 
 @app.route('/read-form', methods=['POST'])
 def read_form():

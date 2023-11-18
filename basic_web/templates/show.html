@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block title %}
+    Форма на отправку
+{% endblock %}
+{% block body %}
+{% for el in  ltstuser %}
+        <div class="alert alert-info">
+            {{el[0]}}, {{el[1]}}, {{el[2]}},
+        </div>
+    {% endfor %}
+
+{% endblock %}
