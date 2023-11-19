@@ -37,11 +37,7 @@ def read_form():
     # users.query('INSERT INTO Users VALUES (?, ?, ?)', (data['userEmail'], data['userPassword'],data['userContact']))
 
     ## Return the extracted information
-    return render_template('formsub.html'),{
-        'emailId': data['userEmail'],
-        'name': data['name'],
-        'lastname': data['lastname'],
-    }
+    return render_template('formsub.html')
 
 
 if __name__=="__main__":
