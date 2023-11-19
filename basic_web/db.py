@@ -8,7 +8,7 @@ class DatabaseManager():
         self.cur=self.conn.cursor()
     def create_tables(self):
         self.query(
-            'CREATE TABLE IF NOT EXISTS Users(email text, password text,contact text)')
+            'CREATE TABLE IF NOT EXISTS Users(email text, name text,lastname text)')
 
     def query(self,arg,values=None):
         if values==None:

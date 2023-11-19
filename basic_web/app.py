@@ -29,17 +29,18 @@ def read_form():
     users.create_tables()
     data = request.form
     userEmail=data['userEmail']
-    userPassword = data['userPassword']
-    userContact = data['userContact']
-    users.query('INSERT INTO Users VALUES (?, ?, ?)', (userEmail, userPassword, userContact))
+    userNmae = data['name']
+    userLastname = data['lastname']
+    dictsend=(userEmail, userNmae, userLastname)
+    print(*dictsend)
+    users.query('INSERT INTO Users VALUES (?, ?, ?)', dictsend)
     # users.query('INSERT INTO Users VALUES (?, ?, ?)', (data['userEmail'], data['userPassword'],data['userContact']))
 
     ## Return the extracted information
     return render_template('formsub.html'),{
         'emailId': data['userEmail'],
-        'phoneNumber': data['userContact'],
-        'password': data['userPassword'],
-        'gender': 'Male' if data['genderMale'] else 'Female',
+        'name': data['name'],
+        'lastname': data['lastname'],
     }
 
 
