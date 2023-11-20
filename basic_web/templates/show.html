@@ -3,9 +3,9 @@
     Форма на отправку
 {% endblock %}
 {% block body %}
-{% for el in  ltstuser %}
+    {% for el in  ltstuser %}
         <div class="alert alert-info">
-            {{el[0]}}, {{el[1]}}, {{el[2]}},
+            {{el[0]}} {{el[1]}} {{el[2]}}
         </div>
     {% endfor %}
 

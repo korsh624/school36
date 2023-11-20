@@ -6,6 +6,7 @@ name='name'
 @app.route("/")
 def home():
     return render_template('index.html')
+
 @app.route("/allinfo")
 def allinfo():
     return render_template('allinfo.html')
@@ -16,11 +17,13 @@ def form():
 
 @app.route("/show")
 def show():
-    users = DatabaseManager('users.db')
-    ltstuser=users.fetchall("""SELECT * FROM users""")
-    print(ltstuser)
+    try:
+        users = DatabaseManager('users.db')
+        ltstuser=users.fetchall("""SELECT * FROM users""")
+        print(ltstuser)
+    except:
+        ltstuser=[('В базе','нет','пользователей')]
     return render_template('show.html', ltstuser=ltstuser)
-
 
 @app.route('/read-form', methods=['POST'])
 def read_form():
@@ -34,11 +37,7 @@ def read_form():
     dictsend=(userEmail, userNmae, userLastname)
     print(*dictsend)
     users.query('INSERT INTO Users VALUES (?, ?, ?)', dictsend)
-    # users.query('INSERT INTO Users VALUES (?, ?, ?)', (data['userEmail'], data['userPassword'],data['userContact']))
-
-    ## Return the extracted information
     return render_template('formsub.html')
-
 
 if __name__=="__main__":
     app.run(debug=True)
